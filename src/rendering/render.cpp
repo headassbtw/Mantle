@@ -43,7 +43,7 @@ int UI::Run(){
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
 
-  UI::gl_window = glfwCreateWindow(UI::window_width, UI::window_height, "CORE tool", NULL, NULL);
+  UI::gl_window = glfwCreateWindow(UI::window_width, UI::window_height, "Mantle", NULL, NULL);
   if(UI::gl_window == NULL){
     fprintf(stderr, "Failed to open window\n");
     glfwTerminate();

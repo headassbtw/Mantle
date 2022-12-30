@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.22)
-project(COREtool)
+project(Mantle)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/CMake_Modules)
 
-add_compile_definitions(CORETOOL_VERSION_MAJOR=0)
-add_compile_definitions(CORETOOL_VERSION_MINOR=0)
-add_compile_definitions(CORETOOL_VERSION_PATCH=0)
+add_compile_definitions(MANTLE_VERSION_MAJOR=0)
+add_compile_definitions(MANTLE_VERSION_MINOR=0)
+add_compile_definitions(MANTLE_VERSION_PATCH=0)
 
 include_directories(include)
 include_directories(external/imgui)
@@ -28,16 +28,16 @@ file(GLOB IM_SRC CONFIGURE_DEPENDS
 include(generate_product_version)
 
 set(APP_COPYRIGHT "headassbtw (C) Copyright 2022")
-set(APP_NAME "COREtool")
+set(APP_NAME "Mantle")
 set(APP_INFOSTRING "Some bullshit app to help read Killzone 2 .core files")
 generate_product_version(
    VersionFilesOutputVariable
    NAME ${APP_NAME}
    COMMENTS ${APP_INFOSTRING}
    COMPANY_COPYRIGHT ${APP_COPYRIGHT}
-   VERSION_MAJOR CORETOOL_VERSION_MAJOR
-   VERSION_MINOR CORETOOL_VERSION_MINOR
-   VERSION_PATCH CORETOOL_VERSION_PATCH
+   VERSION_MAJOR MANTLE_VERSION_MAJOR
+   VERSION_MINOR MANTLE_VERSION_MINOR
+   VERSION_PATCH MANTLE_VERSION_PATCH
 )
 set(GLFW_BUILD_EXAMPLES OFF)
 set(GLFW_BUILD_DOCS OFF)
@@ -57,9 +57,9 @@ else()
 endif()
 
 if(WIN32)
-    add_executable(COREtool WIN32 ${SRC} ${VersionFilesOutputVariable})
+    add_executable(Mantle WIN32 ${SRC} ${VersionFilesOutputVariable})
 else()
-    add_executable(COREtool ${SRC})
+    add_executable(Mantle ${SRC})
 endif()
 
-target_link_libraries(COREtool glew_s glfw ImGui -static-libgcc -static-libstdc++ -s)
+target_link_libraries(Mantle glew_s glfw ImGui -static-libgcc -static-libstdc++ -s)

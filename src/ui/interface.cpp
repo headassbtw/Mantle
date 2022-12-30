@@ -1,3 +1,4 @@
+#include "GLFW/glfw3.h"
 #include "resource.hpp"
 #include <imgui.h>
 #include <rendering/render.hpp>
@@ -29,7 +30,9 @@ void RenderTopBar(){
   if(ImGui::Begin("##MenuBarBox",NULL,ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBackground)){
     if(ImGui::BeginMenuBar()){
       if(ImGui::BeginMenu("File")){
-        ImGui::MenuItem("Quit","ALT + F4");
+        if(ImGui::MenuItem("Quit","ALT + F4")){
+          glfwSetWindowShouldClose(UI::gl_window,true);
+        }
         
         ImGui::EndMenu();
       }// File
@@ -77,7 +80,7 @@ void RenderTopBar(){
   ImGui::SetNextWindowSize({120,10});
   ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding,{8,0});
   if(ImGui::Begin("##MenuBarVersionBox",NULL,ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBackground)){
-    ImGui::Text("pre-alpha v%i.%i.%i",CORETOOL_VERSION_MAJOR,CORETOOL_VERSION_MINOR,CORETOOL_VERSION_PATCH);
+    ImGui::Text("pre-alpha v%i.%i.%i",MANTLE_VERSION_MAJOR,MANTLE_VERSION_MINOR,MANTLE_VERSION_PATCH);
 
     ImGui::End();
   }// MenuBarVersionBox
@@ -94,7 +97,7 @@ void RenderAboutPage(){
   ImGui::SameLine();
   ImGui::BeginGroup();
   ImGui::SetWindowFontScale(2);
-  ImGui::Text("COREtool");
+  ImGui::Text("Mantle");
   ImGui::SetWindowFontScale(1);
   ImGui::Text("A bullshit tool to deal with the bullshit .core archive format used in Killzone 2 (2009, PS3)");
   ImGui::Text("Made with pure unadulturated programmer rage by headassbtw");
