@@ -28,8 +28,8 @@ file(GLOB IM_SRC CONFIGURE_DEPENDS
 include(generate_product_version)
 
 set(APP_COPYRIGHT "headassbtw (C) Copyright 2022")
-set(APP_NAME "Some bullshit app to help read Killzone 2 .core files")
-set(APP_INFOSTRING "Nah")
+set(APP_NAME "COREtool")
+set(APP_INFOSTRING "Some bullshit app to help read Killzone 2 .core files")
 generate_product_version(
    VersionFilesOutputVariable
    NAME ${APP_NAME}

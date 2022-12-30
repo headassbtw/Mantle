@@ -1,7 +1,8 @@
+//#include <fstream>
 #include <fstream>
+#include <sstream>
 #include <stdio.h>
 #include <cstdarg>
-#include <filesystem>
 #include <string>
 #include <logger.hpp>
 #ifdef WIN32
@@ -11,18 +12,20 @@
 #define PATHCHAR "/"
 #endif
 
-FILE* Logger::LogStream;
+FILE* LogStream;
+bool LogForceEnabled = false; //these should be init'd already, but just being safe here
+bool LogEnabled = false;
 
 void Logger::Init(){
   std::string ass = "." PATHCHAR "log.log";
-  LogStream = fopen(ass.c_str(), "w+");
-  //LogStream = std::ofstream(ass.c_str(), std::ofstream::trunc);
-}
-void Logger::End(){
-  
-  //LogStream.close();
+  if(!LogEnabled) LogStream = fopen(ass.c_str(),"w");
+  Info("Log file opened\n");
 }
 
+void Logger::End(){
+  if(LogEnabled) fclose(LogStream);
+  Info("Log file closed\n");
+}
 
 #define RESET   "\033[0m"
 #define BLACK   "\033[30m"
@@ -34,7 +37,7 @@ void Logger::End(){
 #define CYAN    "\033[36m"
 #define WHITE   "\033[37m"
 
-vector<LogMsg*> LoggerMessages;
+std::vector<LogMsg*> LoggerMessages;
 
 enum ConsoleColor{
   Reset,
@@ -79,81 +82,110 @@ void SetConsoleColor(ConsoleColor color){
 
 
 void printt(const char* ass){
-  fprintf(stdout, "%s",ass);
-  //fprintf(Logger::LogStream, ass);
+  printf("%s",ass);
+  if(LogEnabled) fprintf(LogStream, "%s", ass);
+}
+void LoggerPrefix(LogType col){
+  switch(col){
+    case Debug:    SetConsoleColor(Green);   printt("  [DEBUG]  | "); break;
+
+    case Notice:   SetConsoleColor(Yellow);  printt("  [NOTICE] | "); break;
+
+    case Error:    SetConsoleColor(Red);     printt("  [ERROR]  | "); break;
+
+    case Critical: SetConsoleColor(Magenta); printt("[CRITICAL] | "); break;
+
+    case Info:     SetConsoleColor(White);   printt("  [INFO]   | "); break;
+  }
 }
 
-void CommonLog(LogType col, va_list args, const char* msg...){
-  
-  
-  
-  
+void CommonLog(LogType col, const char* msg...){
   switch(col){
-    case Debug:
-    SetConsoleColor(Green);
-    printt("  [DEBUG]  | ");
-    break;
+    case Debug:    SetConsoleColor(Green);   printt("  [DEBUG]  | "); break;
     
-    case Notice:
-    SetConsoleColor(Yellow);
-    printt("  [NOTICE] | ");
-    break;
+    case Notice:   SetConsoleColor(Yellow);  printt("  [NOTICE] | "); break;
 
-    case Error:
-    SetConsoleColor(Red);
-    printt("  [ERROR]  | ");
-    break;
+    case Error:    SetConsoleColor(Red);     printt("  [ERROR]  | "); break;
     
-    case Critical:
-    SetConsoleColor(Magenta);
-    printt("[CRITICAL] | ");
-    break;
+    case Critical: SetConsoleColor(Magenta); printt("[CRITICAL] | "); break;
 
-    case Info:
-    SetConsoleColor(White);
-    printt("  [INFO]   | ");
-    break;
+    case Info:     SetConsoleColor(White);   printt("  [INFO]   | "); break;
   }
   char msg_buf[2048];
-  sprintf(msg_buf,msg, args);
+  
+  va_list args;
+  va_start(args, msg);
+  vfprintf(stdout,msg,args);
+  va_end(args);
   printf("%s",msg_buf);
 
-  LogMsg* m = new LogMsg();
-  m->msg = string(msg_buf);
-  m->type = col;
-  LoggerMessages.push_back(m);
+  
 
-  //vfprintf(Logger::LogStream,msg, args);
+  //LogStream.write(msg_buf, 2048);
+
   SetConsoleColor(Reset);
 }
+
+void AddToInAppLogger(char* message, LogType type){
+  LogMsg* m = new LogMsg();
+  m->msg = std::string(message);
+  m->type = type;
+  LoggerMessages.push_back(m);
+}
+
+void help(const char* p, va_list args){
+  printf(p,args);
+}
+
+
+void CommonLog(LogType type, const char *fmt, va_list args1){
+  LogType _type = (LogType)type;
+  LoggerPrefix(_type);
+  va_list args2;
+  va_copy(args2, args1);
+  char ass[2048];
+  vsprintf(ass,fmt,args2);
+  AddToInAppLogger(ass, _type);
+  va_end(args2);
+  va_copy(args2,args1);
+  vfprintf(stdout,fmt,args2);
+  va_end(args2);
+  if(LogEnabled){
+    va_copy(args2,args1);
+    vfprintf(LogStream,fmt,args2);
+    va_end(args2);
+  }
+  SetConsoleColor(Reset);
+}
+
 void Logger::Notice(const char* msg...){
   va_list args;
   va_start(args, msg);
-  CommonLog(LogType::Notice, args, msg);
+  CommonLog(LogType::Notice, msg,args);
   va_end(args);
+  
 }
 void Logger::Info(const char* msg...){
   va_list args;
   va_start(args, msg);
-  CommonLog(LogType::Info, args, msg);
+  CommonLog(LogType::Info, msg,args);
   va_end(args);
 }
 void Logger::Error(const char* msg...){
   va_list args;
   va_start(args, msg);
-  CommonLog(LogType::Error, args, msg);
+  CommonLog(LogType::Error, msg,args);
   va_end(args);
 }
 void Logger::Critical(const char* msg...){
   va_list args;
   va_start(args, msg);
-  CommonLog(LogType::Critical, args, msg);
+  CommonLog(LogType::Critical, msg,args);
   va_end(args);
 }
 void Logger::Debug(const char* msg...){
   va_list args;
   va_start(args, msg);
-  CommonLog(LogType::Debug, args,msg);
+  CommonLog(LogType::Debug, msg,args);
   va_end(args);
-
 }

@@ -2,10 +2,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
-using namespace std;
 
 struct Logger{
-  static FILE* LogStream;
   static void Init();
   static void Notice(const char* msg...);
   static void Info(const char* msg...);
@@ -15,8 +13,10 @@ struct Logger{
   static void End();
 };
 struct LogMsg{
-  string msg;
+  std::string msg;
   int type;
 };
-
-extern vector<LogMsg*> LoggerMessages;
+extern FILE* LogStream;
+extern std::vector<LogMsg*> LoggerMessages;
+extern bool LogForceEnabled;
+extern bool LogEnabled;
