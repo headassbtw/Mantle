@@ -1,11 +1,5 @@
 #include <core/core_file.hpp>
-#include <logger.hpp>
 #include <rendering/render.hpp>
-using namespace std;
-
-
-
-
 
 int main(int argc, char *argv[]) {
   Logger::Init();
