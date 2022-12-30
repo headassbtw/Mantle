@@ -1,0 +1,7 @@
+.cache/
+.vscode/
+.DS_Store
+bin/
+build-windows/
+build-linux/
+build-osx/
