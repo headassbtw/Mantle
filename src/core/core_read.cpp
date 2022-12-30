@@ -50,6 +50,11 @@ core_kz2_file* disk_core_read(std::string file_path){
     printf("%s\n",filetype);
   }
 
+  // calling it for tonight
+  // weird thing, string chunks in the asset type in the middle of 
+  // /kronos/Games/PS3/Killzone 2/PS3_GAME/USRDIR/LocalCachePS3/lumps/characters.hgh_grenadier.core
+  // instead of starting with one byte containing the length, there are two, the last is correct but the first is *always* 1 higher
+
 
   return core_file;
 }

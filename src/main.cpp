@@ -1,12 +1,5 @@
-#include "core/core_file.hpp"
+#include <core/core_file.hpp>
 #include <logger.hpp>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <iostream>
-#include <string>
-#include <utility>
-#include <vector>
 #include <rendering/render.hpp>
 using namespace std;
 
