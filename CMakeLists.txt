@@ -3,6 +3,10 @@ project(COREtool)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/CMake_Modules)
 
+add_compile_definitions(CORETOOL_VERSION_MAJOR=0)
+add_compile_definitions(CORETOOL_VERSION_MINOR=0)
+add_compile_definitions(CORETOOL_VERSION_PATCH=0)
+
 include_directories(include)
 include_directories(external/imgui)
 include_directories(external/glfw/include)
@@ -31,9 +35,9 @@ generate_product_version(
    NAME ${APP_NAME}
    COMMENTS ${APP_INFOSTRING}
    COMPANY_COPYRIGHT ${APP_COPYRIGHT}
-   VERSION_MAJOR 0
-   VERSION_MINOR 0
-   VERSION_PATCH 1
+   VERSION_MAJOR CORETOOL_VERSION_MAJOR
+   VERSION_MINOR CORETOOL_VERSION_MINOR
+   VERSION_PATCH CORETOOL_VERSION_PATCH
 )
 set(GLFW_BUILD_EXAMPLES OFF)
 set(GLFW_BUILD_DOCS OFF)

@@ -9,7 +9,11 @@ so it seems like strings are *always* prefaced by their length, outside of the h
 this may set a precident that objects are prefaced by length, and the string object already has a length
 
 ## Headers
-0xFFFF *MAY* be a header for something, in `lumps/characters.hgh_grenadier.core` the chunks near the bottom of the file start with `0xFFFF`, and then *visually* some of the same data as one another, which could indicate an asset type
+0xFFFF *MAY* be a header for something, in `lumps/characters.hgh_grenadier.core` the chunks near the bottom of the file start with `0xFFFF`, and then *visually* some of the same data as one another, which could indicate an asset type (or texture data)
 
 ## Textures
 importing the entire .core archive into gimp as raw data gives results *visually* similar to a `BC1_UNORM_SRGB` dds file. Could be correlated however I haven't looked yet.
+
+Texture headers seem to end in 80 bytes of `0x50`, not sure why but at least it's consistent.
+
+Textures vaguely appear to be in R6G5B6 format, with additional BCn compression on them, however just speculating that

@@ -1,7 +1,14 @@
+#IDE and LSP files
 .cache/
 .vscode/
+compile_commands.json
+.idea/
+#Somewhere along the way I used a mac?
 .DS_Store
+#Compiled Binaries
 bin/
 build-windows/
 build-linux/
 build-osx/
+#misc
+*.log

@@ -28,6 +28,10 @@ core_kz2_file* disk_core_read(std::string file_path){
 
   in_stream.read(core_file->version, 4);
   printf("Core file is version %s\n", core_file->version);
+  if(strcmp(core_file->version,"1.58") != 0){
+    Logger::Critical("disk_core_read: core archive version not supported\n");
+    abort();
+  }
 
   /////////////////////////////////////////////////////////////////////////////////////
   //COME BACK TO ME YOU BITCH

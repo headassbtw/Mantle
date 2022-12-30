@@ -1,5 +1,6 @@
 #include <core/core_file.hpp>
 #include <rendering/render.hpp>
+#include <logger.hpp>
 
 int main(int argc, char *argv[]) {
   Logger::Init();
