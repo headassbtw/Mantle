@@ -16,6 +16,8 @@ Every .core file starts off with `RTTIBin<1.58>` and this is corroborated with i
 ## Textures
 importing the entire .core archive into gimp as raw data gives results *visually* similar to a `BC1_UNORM_SRGB` dds file. Could be correlated however I haven't looked yet.
 
-Texture headers seem to end in 80 bytes of `0x50`, not sure why but at least it's consistent.
+Texture headers seem to end in 80 bytes of `0x50`, and start with 72 bytes of `0xEE`not sure why but at least it's consistent.
+
+Resolution probably starts 27 bytes after the `0x50` block 
 
 Textures vaguely appear to be in R6G5B6 format, with additional BCn compression on them, however just speculating that
