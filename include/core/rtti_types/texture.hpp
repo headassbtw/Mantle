@@ -3,7 +3,7 @@
 
 struct rtti_Texture{
   char begin[72]; //full of 0xEE
-  //char unk0[22 - 27]; //LENGTH VARIES OF BULLSHIT!
+  //char unk0[18 - 23]; //LENGTH VARIES OF BULLSHIT!
   char unk1[4]; //likely blank
 
   uint32_t res0; // not sure which these are (height or width)

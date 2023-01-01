@@ -20,6 +20,6 @@ Texture headers seem to end in 80 bytes of `0x50`, and start with 72 bytes of `0
 
 Resolution probably starts 27 bytes after the `0x50` block 
 
-Textures vaguely appear to be in RGB565 format, however *with the wrong endianness (using little in gimp's importer while the PS3 is little), with additional BCn compression on them, however just speculating that
+Textures vaguely appear to be in RGB565 format, however *with the wrong endianness* (using little in gimp's importer while the PS3 is big), with additional BCn compression on them, however just speculating that
 
 more details in [the texture definition file](https://github.com/headassbtw/Mantle/blob/main/include/core/rtti_types/texture.hpp)
