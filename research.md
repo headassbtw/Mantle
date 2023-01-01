@@ -9,6 +9,8 @@ so it seems like strings are *always* prefaced by their length, outside of the h
 this may set a precident that objects are prefaced by length, and the string object already has a length
 
 ## Headers
+Every .core file starts off with `RTTIBin<1.58>` and this is corroborated with it being in a `strings` output of the decrypted ELF binary.
+
 0xFFFF *MAY* be a header for something, in `lumps/characters.hgh_grenadier.core` the chunks near the bottom of the file start with `0xFFFF`, and then *visually* some of the same data as one another, which could indicate an asset type (or texture data)
 
 ## Textures
