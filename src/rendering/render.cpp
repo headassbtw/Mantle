@@ -137,11 +137,6 @@ int UI::Run(){
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-    if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-    {
-      ImGui::UpdatePlatformWindows();
-      ImGui::RenderPlatformWindowsDefault();
-    }
     glfwSwapBuffers(UI::gl_window);
   }
   while(glfwWindowShouldClose(UI::gl_window) == 0);
