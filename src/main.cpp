@@ -5,7 +5,8 @@
 int main(int argc, char *argv[]) {
   Logger::Init();
   if(argc >= 2){
-    core_kz2_file* core = disk_core_read(argv[1]);
+    core_kz2_file* core;
+    disk_core_read(core,argv[1]);
     return 1;
   }
 

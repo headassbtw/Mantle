@@ -1,27 +1,53 @@
 #include "GLFW/glfw3.h"
+#include "imgui_internal.h"
 #include "resource.hpp"
 #include <imgui.h>
 #include <rendering/render.hpp>
 #include <rendering/gl_tools.hpp>
 #include <stb_image.h>
+#include <core/core_file.hpp>
+#include <optional>
+#include <logger.hpp>
+#include <tinyfiledialogs.h>
+
 bool show_imgui_demo_window = false;
 ImU32 imgui_menubar_background_color;
 ImU32 imgui_tab_active_color;
 
 int interface_selected_window = 0;
-
 GLuint program_icon;
+
+std::string file_name_temp;
+core_kz2_file* core_file;
+bool has_core_file = false;
+
+void file_open(const char* path){
+  file_name_temp = std::string(path);
+  has_core_file = disk_core_read(core_file, std::string(path));
+}
+
+void file_drop_callback(GLFWwindow* window, int count, const char** paths)
+{
+  file_open(paths[0]);
+}
+
+void TextCentered(const char* text){
+  
+}
 
 void UI::SetupInterface(){
   imgui_menubar_background_color = ImGui::GetColorU32(ImGuiCol_MenuBarBg);
   imgui_tab_active_color = ImGui::GetColorU32(ImGuiCol_TabActive);
 
   program_icon = GetGLTexture(Resources::Icon, Resources::Icon_size);
+  glfwSetDropCallback(UI::gl_window, file_drop_callback);
+  core_file = new core_kz2_file();
 
 }
 
 void UI::DestroyInterface(){
   glDeleteTextures(1,&program_icon);
+  delete core_file;
 }
 
 void RenderTopBar(){
@@ -87,8 +113,54 @@ void RenderTopBar(){
   ImGui::PopStyleVar(1);
 }
 
+void RenderNoFileDialog(){
+  const char* message = "Drop a file on here to start.\n or click Here to browse";
+  auto window_size = ImGui::GetWindowSize();
+  auto text_size   = ImGui::CalcTextSize(message);
+  const ImVec2 here_prompt_width = ImGui::CalcTextSize("Here");
+
+  ImGui::SetCursorPosX((window_size.x - text_size.x) * 0.5f);
+  ImGui::SetCursorPosY((window_size.y - text_size.y) * 0.5f);
+  static bool a;
+  ImGui::Text("Drop a file on here to start.");
+  ImGui::SetCursorPosX((window_size.x - text_size.x) * 0.5f);
+  ImGui::Text("or click ");
+  ImGui::SameLine();
+  if(ImGui::Selectable("Here",a,ImGuiSelectableFlags_SelectOnClick,here_prompt_width)){
+    const char* exts[1];
+    exts[0] = "*.core";
+    char const * selection = tinyfd_openFileDialog( // there is also a wchar_t version
+        "Select file", // title
+        NULL, // optional initial directory
+        1, // number of filter patterns
+        exts,
+        NULL, // optional filter description
+        0 // forbid multiple selections
+    );
+    if(selection != NULL){
+      file_open(selection);
+    }
+    
+  }
+  ImGui::SameLine();
+  ImGui::Text(" to browse");
+
+}
+
 void RenderMainPage(){
-  ImGui::Text("I'd probably put a file picker here or something");
+  if(!has_core_file) RenderNoFileDialog();
+  else if(has_core_file){
+    ImGui::Text("Version: %s", core_file->version);
+    ImGui::Text("Filename: %s",file_name_temp.c_str());
+
+    if (ImGui::TreeNode((void*)(intptr_t)0, "File types (%hhu)", core_file->included_filetypes_count))
+    {
+      for(auto file : core_file->included_filetypes){
+        ImGui::Text("%s | %zu",file,strlen(file));
+      }
+      ImGui::TreePop();
+    }
+  }
 }
 
 void RenderAboutPage(){

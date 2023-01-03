@@ -1,16 +1,14 @@
-#ifndef CORETOOL_CORE_FILE_HPP
-#define CORETOOL_CORE_FILE_HPP
-
 #pragma once
 #include <vector>
 #include <string>
 struct core_kz2_file{
-  char version[4];
+  char version[8];
   char unk1[19];
   uint8_t included_filetypes_count;
-  std::vector<std::string> included_filetypes;
+  std::vector<char*> included_filetypes;
+
+  core_kz2_file();
 };
 
-core_kz2_file* disk_core_read(std::string file_path);
 
-#endif //CORETOOL_CORE_FILE_HPP
+bool disk_core_read(core_kz2_file* &core_file, std::string file_path);
