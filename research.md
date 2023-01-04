@@ -20,11 +20,11 @@ importing the entire .core archive into gimp as raw data gives results *visually
 
 structure goes kinda like this
 
-three bytes, `0x00`,`0x00`,`0x00`, followed by various data, including but not always: the size of the texture data (all mipmaps) in bytes, the x and y resolution, as well as the mipmap count (speculative)
+three bytes, `0x00`,`0x01`,`0x80`, followed by various data, including but not always: the size of the texture data (all mipmaps) in bytes, the x and y resolution, as well as the mipmap count (speculative)
 
 after that, 80 bytes of `0x50`, then the texture data, finished up with 72 bytes of `0x50`
 
 Textures vaguely appear to be in RGB565 format, with additional BCn compression on them, however just speculating that
 
-more details in [the ImHex pattern file](https://github.com/headassbtw/Mantle/blob/main/ImHex%20Patterns/rtti_texture.hexpat)
+more details in [the ImHex pattern file](https://github.com/headassbtw/Mantle/blob/main/ImHex_Patterns/rtti_texture.hexpat)
 
