@@ -4,7 +4,7 @@
 
 struct rtti_texture_0
 {
-  char unk1[3];
+  char unk1[3]; //0x000180
   u32 size;
   char unk2[9];
   u48 zero;
@@ -17,7 +17,7 @@ struct rtti_texture_0
 };
 struct rtti_texture_1
 {
-  char unk1[3];
+  char unk1[3]; //0x000180
   u32 size;
   char unk2[13];
   u48 zero;
@@ -30,7 +30,7 @@ struct rtti_texture_1
 };
 struct rtti_texture_2
 {
-  char unk1[3];
+  char unk1[3]; //0x810080
   u32 size;
   char unk2[6];
   u48 zero;
@@ -45,7 +45,7 @@ struct rtti_texture_2
 };
 struct rtti_texture_3 //WIP
 {
-  char unk1[3];
+  char unk1[3]; //0x000181
   char unk2[63];
   u32 res1;
   char unk3[12];
