@@ -18,11 +18,13 @@ most character models have a `0x80` after the file types, however this is not co
 ## Textures
 importing the entire .core archive into gimp as raw data gives results *visually* similar to a `BC1_UNORM_SRGB` dds file. Could be correlated however I haven't looked yet.
 
-Texture headers seem to end in 80 bytes of `0x50`, and start with 72 bytes of `0xEE`not sure why but at least it's consistent.
+structure goes kinda like this
 
-Resolution probably starts 27 bytes after the `0x50` block 
+three bytes, `0x00`,`0x00`,`0x00`, followed by various data, including but not always: the size of the texture data (all mipmaps) in bytes, the x and y resolution, as well as the mipmap count (speculative)
 
-Textures vaguely appear to be in RGB565 format, however *with the wrong endianness* (using little in gimp's importer while the PS3 is big), with additional BCn compression on them, however just speculating that
+after that, 80 bytes of `0x50`, then the texture data, finished up with 72 bytes of `0x50`
 
-more details in [the texture definition file](https://github.com/headassbtw/Mantle/blob/main/include/core/rtti_types/texture.hpp)
+Textures vaguely appear to be in RGB565 format, with additional BCn compression on them, however just speculating that
+
+more details in [the ImHex pattern file](https://github.com/headassbtw/Mantle/blob/main/ImHex%20Patterns/rtti_texture.hexpat)
 

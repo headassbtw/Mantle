@@ -8,6 +8,7 @@ struct core_kz2_file{
   std::vector<char*> included_filetypes;
 
   core_kz2_file();
+  ~core_kz2_file();
 };
 
 

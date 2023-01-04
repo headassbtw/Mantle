@@ -58,17 +58,14 @@ bool disk_core_read(core_kz2_file* &core_file, std::string file_path){
   for(int i = 0; i < core_file->included_filetypes_count; i++){
     uint8_t str_length;
     in_stream.read((char*)&str_length, 1); //the lenth of the filetype
-    char filetype[str_length+1]; //null-terminated because C++ expects them to be like that to be properly printed
+    //char filetype[str_length+1]; //null-terminated because C++ expects them to be like that to be properly printed
+    char *filetype = (char*)malloc(str_length+1);
     memset(filetype,0x00,str_length+1);
     in_stream.read(filetype, str_length);
     core_file->included_filetypes.push_back(filetype);
     if(i == core_file->included_filetypes_count-1) printf("`--");
     else                                           printf("|--");
-    printf("%s | %zu\n",filetype,strlen(filetype));
-    //this is just a sanity check to see the data in the vector isn't immediately being corrupted
-    if(i == core_file->included_filetypes_count-1) printf("  `-");
-    else                                           printf("| `-");
-    printf("%s | %zu\n",core_file->included_filetypes[i],strlen(core_file->included_filetypes[i]));
+    printf("%s\n",filetype);
   }
   if(core_file->included_filetypes_count != core_file->included_filetypes.size()){
     throw new std::runtime_error("file amount mismatch in core_file->included_filetypes_count!");

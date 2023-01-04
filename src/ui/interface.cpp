@@ -152,11 +152,10 @@ void RenderMainPage(){
   else if(has_core_file){
     ImGui::Text("Version: %s", core_file->version);
     ImGui::Text("Filename: %s",file_name_temp.c_str());
-
     if (ImGui::TreeNode((void*)(intptr_t)0, "File types (%hhu)", core_file->included_filetypes_count))
     {
       for(auto file : core_file->included_filetypes){
-        ImGui::Text("%s | %zu",file,strlen(file));
+        ImGui::Text("%s",file);
       }
       ImGui::TreePop();
     }
