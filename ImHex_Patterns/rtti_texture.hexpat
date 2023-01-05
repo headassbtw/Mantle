@@ -54,4 +54,15 @@ struct rtti_texture_3 //WIP
   char begin[80];
 };
 
-
+struct rtti_texture_funky //fresh beats
+{
+  char unk1[40];
+  u32 unk2;
+  char unk3[4];
+  u32 also_size;
+  char unk4[12];
+  u32 also_also_size;
+  char unk5[24];
+  char begin[80];
+  char im_gonna_regret_this_arent_i[also_size];
+};
