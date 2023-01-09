@@ -1,3 +1,3 @@
 #pragma once
-#include <GL/gl.h>
+#include <gl.hpp>
 GLuint GetGLTexture(const unsigned char *file_data, int size);
