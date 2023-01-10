@@ -26,10 +26,6 @@ GLFWwindow* UI::gl_window;
 int UI::window_height = 500;
 int UI::window_width = 800;
 
-void render(){
-  
-}
-
 void viewport_size_callback(GLFWwindow* window, int xpos, int ypos){
     UI::window_height = ypos;  
     UI::window_width = xpos;
