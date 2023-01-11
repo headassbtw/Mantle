@@ -9,6 +9,7 @@
 #include <optional>
 #include <logger.hpp>
 #include <tinyfiledialogs.h>
+#include <ui.hpp>
 
 bool show_imgui_demo_window = false;
 ImU32 imgui_menubar_background_color;
@@ -28,11 +29,14 @@ void file_open(const char* path){
 
 void file_drop_callback(GLFWwindow* window, int count, const char** paths)
 {
-  file_open(paths[0]);
-}
-
-void TextCentered(const char* text){
-  
+  switch(interface_selected_window){
+    case 0:
+      file_open(paths[0]);
+      break;
+    case 1:
+      UI::Pages::TextureTools.FileDropCallback(paths[0]);
+      break;
+  }
 }
 
 void UI::SetupInterface(){
@@ -90,10 +94,15 @@ void RenderTopBar(){
         ImGui::EndTabItem();
       } //Main
 
-      if(ImGui::BeginTabItem("About Tool")){
+      if(ImGui::BeginTabItem("Texture WIP")){
         interface_selected_window = 1;
         ImGui::EndTabItem();
-      } //Secondary
+      } //Texture WIP
+
+      if(ImGui::BeginTabItem("About Tool")){
+        interface_selected_window = 2;
+        ImGui::EndTabItem();
+      } //About Tool
 
       ImGui::EndTabBar();
     }// MenuBarTabList
@@ -186,6 +195,9 @@ void UI::RenderInterface(){
         RenderMainPage();
         break;
       case 1:
+        UI::Pages::TextureTools.Render();
+        break;
+      case 2:
         RenderAboutPage();
         break;
       default:
