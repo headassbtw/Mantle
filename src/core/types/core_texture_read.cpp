@@ -4,6 +4,7 @@
 #include <logger.hpp>
 #include <fstream>
 #include <stdexcept>
+#include <defs.hpp>
 
 bool disk_read_rtti_texture(rtti_texture_base &rtti_texture, const char *filepath){;
   std::ifstream in_stream(filepath);
@@ -18,18 +19,18 @@ bool disk_read_rtti_texture(rtti_texture_base &rtti_texture, const char *filepat
   Logger::Debug("C++ thinks \"%s\" is the same as \"%s\", is it right? \n",unk1,tex_0);
     in_stream.read((char*)rtti_texture.texture_data_size,4);
     rtti_texture.data = (char*)malloc(rtti_texture.texture_data_size);
-    in_stream.seekg(15,std::ios_base::seekdir::cur); // unknown
+    in_stream.seekg(15,IOS_SEEK_CUR); // unknown
     in_stream.read((char*)rtti_texture.res0,4);
     in_stream.read((char*)rtti_texture.res1,4);
-    in_stream.seekg(76,std::ios_base::seekdir::cur); // unknown
+    in_stream.seekg(76,IOS_SEEK_CUR); // unknown
     //before we start with the texture data we can verify the size
     if (in_stream.tellg() != 106){
       Logger::Critical("File progress mismatch,. terminating. \n");
       throw(new std::runtime_error("File progress mismatch."));
     }
-    in_stream.seekg(80,std::ios_base::seekdir::cur); // begin
+    in_stream.seekg(80,IOS_SEEK_CUR); // begin
     in_stream.read(rtti_texture.data,rtti_texture.texture_data_size);
-    in_stream.seekg(72,std::ios_base::seekdir::cur); // end
+    in_stream.seekg(72,IOS_SEEK_CUR); // end
     in_stream.close();
     return true;
   }

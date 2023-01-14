@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
+#include <defs.hpp>
 
 bool disk_core_read(core_kz2_file* &core_file, std::string file_path){
   std::ifstream in_stream(file_path.c_str());
@@ -48,7 +49,7 @@ bool disk_core_read(core_kz2_file* &core_file, std::string file_path){
   /////////////////////////////////////////////////////////////////////////////////////
   //COME BACK TO ME YOU BITCH
   
-  in_stream.seekg(17,std::ios_base::seekdir::cur); //skips over shit i don't know yet
+  in_stream.seekg(17,IOS_SEEK_CUR); //skips over shit i don't know yet
   //SERIOUSLY IT'S GONNA BITE YOU IN THE ASS
   /////////////////////////////////////////////////////////////////////////////////////
   #pragma endregion
