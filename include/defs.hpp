@@ -5,3 +5,5 @@
 #else 
 #define IOS_SEEK_CUR std::ios_base::seekdir::_S_cur
 #endif
+
+#define __MANTLE_LITTLE_ENDIAN__

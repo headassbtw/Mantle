@@ -6,18 +6,18 @@
 #include </home/headass/cppProjects/Mantle/ImHex_Patterns/rtti_texture.hexpat>
 #include </home/headass/cppProjects/Mantle/ImHex_Patterns/rttibin.hexpat>
 
-//                              first six bytes of unk2 | texture type
-//------------------------------------------------------|---------------------------
-rtti_texture_2 texture0 @ 0x10AD31; //AB 00 81 01 33 00 | detail map, combo of greyscale
-rtti_texture_1 texture1 @ 0x1358E8; //81 00 80 01 80 00 | normal map in little endian?
-rtti_texture_funky texture1point5 @ 0x1604B8; //dude what the fuck is this?
-rtti_texture_1 texture2 @ 0x160764; //02 00 81 00 80 81 | probably color
-rtti_texture_0 texture3 @ 0x18B322; //81 00 80 00 00 81 | normal map
-rtti_texture_1 texture4 @ 0x235EDC; //81 00 80 01 80 00 | likely a detail map
-rtti_texture_1 texture5 @ 0x240A9A; //81 00 80 01 80 00 | unknown
-rtti_texture_1 texture6 @ 0x24B658; //B8 81 00 80 00 80 | probably a detail of sorts
-rtti_texture_0 texture7 @ 0x2F6216; //00 80 01 00 81 01 | normal map
-rtti_texture_1 texture8 @ 0x3A0DD0; //81 00 80 01 80 00 | same look as 6
+//                              first six bytes of unk2 | weird? | texture type
+//------------------------------------------------------|--------|------------------
+rtti_texture_2 texture0 @ 0x10AD31; //AB 00 81 01 33 00 | crash  |detail map, combo of greyscale
+rtti_texture_1 texture1 @ 0x1358E8; //81 00 80 01 80 00 |  yes   |normal map
+rtti_texture_funky texture1point5 @ 0x1604B8; //dude what   :)   |the fuck is this?
+rtti_texture_1 texture2 @ 0x160764; //02 00 81 00 80 81 |   no   |color
+rtti_texture_0 texture3 @ 0x18B322; //81 00 80 00 00 81 |  yes   |normal map
+rtti_texture_1 texture4 @ 0x235EDC; //81 00 80 01 80 00 |   no   |likely a detail map
+rtti_texture_1 texture5 @ 0x240A9A; //81 00 80 01 80 00 |   no   |normal map
+rtti_texture_1 texture6 @ 0x24B658; //B8 81 00 80 00 80 |   no   |multiple color
+rtti_texture_0 texture7 @ 0x2F6216; //00 80 01 00 81 01 |  yes   |normal map
+rtti_texture_1 texture8 @ 0x3A0DD0; //81 00 80 01 80 00 |   no   |color
 
 
 struct rtti_stringchunk_v2{

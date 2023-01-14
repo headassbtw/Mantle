@@ -4,18 +4,16 @@
 #include <string>
 #include <tinyfiledialogs.h>
 #include <core/rtti_types/texture.hpp>
+#include <core/core_texture_extractor_beta.hpp>
 
 TexToolsPage UI::Pages::TextureTools;
-bool has_tex = false;
-bool tex_valid = false;
-rtti_texture_base texture;
-
+bool has_file; //a file has been dropped. it exists. nothing more.
 std::string tex_temp;
+GLuint tex;
 
 void texture_open(const char* path){
-  has_tex = true;
   tex_temp = std::string(path);
-  tex_valid = disk_read_rtti_texture(texture, path);
+  has_file = true;
 }
 
 void TexToolsPage::FileDropCallback(const char* path){
@@ -61,16 +59,18 @@ void RenderNoTextureDialog(){
 }
 
 void TexToolsPage::Render(){
-  if(has_tex)
-    if(tex_valid){
-      ImGui::Text("HEY, texture tools page goes here\n");
+  if(has_file){
+    ImGui::Text("Filename: %s",tex_temp.c_str());
+
+    ImGui::Text("Enter offset of texture:");
+    static int offset = 1443684;
+    ImGui::InputInt("##offset", &offset, 0, 0, ImGuiInputTextFlags_CharsHexadecimal);
+    //160764
+    if(ImGui::Button("Convert")){
+      tex = RTTI::find_tex(offset, tex_temp.c_str());
     }
-    else{
-      ImGui::Text("Sorry, that texture file was invalid,\nclick to try again:");
-      if(ImGui::Button("Retry"))
-      has_tex = false;
-    }
-  
+
+  }
   else{
     RenderNoTextureDialog();
   }

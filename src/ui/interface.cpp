@@ -44,6 +44,7 @@ void UI::SetupInterface(){
   imgui_tab_active_color = ImGui::GetColorU32(ImGuiCol_TabActive);
 
   program_icon = GetGLTexture(Resources::Icon, Resources::Icon_size);
+
   glfwSetDropCallback(UI::gl_window, file_drop_callback);
   core_file = new core_kz2_file();
 
