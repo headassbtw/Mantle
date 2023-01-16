@@ -10,14 +10,8 @@ struct rtti_bin_file_header{
   rtti_string strchunk[strchunk_length];
 };
 
-struct unknown_gradient{
-  u8 len;
-  char unk1[len];
-};
-
 struct RTTIBin{
   rtti_bin_file_header file_header;
-  unknown_gradient gradient;
 };
 
 RTTIBin rtti @ 0x00;

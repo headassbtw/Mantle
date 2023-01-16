@@ -37,8 +37,7 @@ GLuint RTTI::find_tex(uint32_t offset, const char *filepath){
 
     file.read(voidd,76);
     file.read(voidd,80);
-
-    char image_data[size];
+    
     char* full_image_data = (char*)malloc(size+128);
 
     char start_dds_header[128] = {
