@@ -1,7 +1,5 @@
 ## Mantle
 
-Killzone 2 I swear to fucking god, you have the DRIPPIEST goons I've ever seen, and have a file format nobody's cracked in a decade.
-
 ## [here](https://github.com/headassbtw/COREtool/blob/main/research.md) is a file with the info i've been researching so far
 
 ## Why?
